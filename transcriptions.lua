@@ -20,12 +20,12 @@ return {
         duration = 1.87
     },
     ["1004181166"] = {
-        text = "CS CAN, going out!",
+        text = "CS can, going out!",
         duration = 2.22
     },
     ["1005404098"] = {
         text = "You're nothing!",
-        duration = 0.83
+        duration = 1.02
     },
     ["1006631208"] = {
         text = "Death by proxy.",
@@ -69,7 +69,7 @@ return {
     },
     ["1013493174"] = {
         text = "Set to be shocked.",
-        duration = 1.63
+        duration = 1.80
     },
     ["1013498454"] = {
         text = "Agh ugh... What the hell?",
@@ -80,7 +80,7 @@ return {
         duration = 2.96
     },
     ["1015869434"] = {
-        text = "Ah, I broke my toy!",
+        text = "Ngah... I broke my toy!",
         duration = 2.45
     },
     ["1016606201"] = {
@@ -104,7 +104,7 @@ return {
         duration = 1.81
     },
     ["1021197139"] = {
-        text = "The shield took the hit!",
+        text = "The Shield took the hit!",
         duration = 1.08
     },
     ["1022146369"] = {
@@ -136,7 +136,7 @@ return {
         duration = 1.66
     },
     ["1028248434"] = {
-        text = "What the shit was that?",
+        text = "WHAT THE SHIT WAS THAT?!",
         duration = 1.25
     },
     ["1028335257"] = {
@@ -148,7 +148,7 @@ return {
         duration = 1.18
     },
     ["1030314391"] = {
-        text = "Remote Bulletstorm!",
+        text = "Remote bulletstorm!",
         duration = 2.08
     },
     ["1031651347"] = {
@@ -156,7 +156,7 @@ return {
         duration = 1.8
     },
     ["1031953637"] = {
-        text = "10-84, Tactical Shield Unit.",
+        text = "10-84, tactical Shield unit.",
         duration = 2.04
     },
     ["1032520127"] = {
@@ -188,7 +188,7 @@ return {
         duration = 2.75
     },
     ["103530710"] = {
-        text = "Head Scrambler going out.",
+        text = "Head scrambler going out.",
         duration = 2.28
     },
     ["103731538"] = {
@@ -248,7 +248,7 @@ return {
         duration = 1.7
     },
     ["1050721257"] = {
-        text = "MMMMAUGHH...",
+        text = "MMMAAUGHH...",
         duration = 1.8
     },
     ["1050812395"] = {
@@ -289,7 +289,7 @@ return {
     },
     ["1058017700"] = {
         text = "BLOCKED IT!",
-        duration = 0.67
+        duration = 0.90
     },
     ["1058029373"] = {
         text = "Fuckers hacked my drone!",
@@ -320,7 +320,7 @@ return {
         duration = 1.68
     },
     ["106870401"] = {
-        text = "I'm juiced out!",
+        text = "I'm juiced out...",
         duration = 1.74
     },
     ["1068717350"] = {
@@ -340,7 +340,7 @@ return {
         duration = 5.74
     },
     ["1070928692"] = {
-        text = "Ah.",
+        text = "Ah...",
         duration = 0.6
     },
     ["107160773"] = {
@@ -353,7 +353,7 @@ return {
     },
     ["107685457"] = {
         text = "Try touching this while grounded!",
-        duration = 1.88
+        duration = 2.10
     },
     ["109019867"] = {
         text = "I CAN'T SEE! IT BURNS!",
@@ -380,7 +380,7 @@ return {
         duration = 0.96
     },
     ["111996550"] = {
-        text = "Viewport compromised!",
+        text = "VIEWPORT COMPROMISED!",
         duration = 1.73
     },
     ["113213679"] = {
@@ -392,12 +392,12 @@ return {
         duration = 2.25
     },
     ["113725300"] = {
-        text = "Surrender while you can!",
-        duration = 1.73
+        text = "Surrender while you can.",
+        duration = 1.90
     },
     ["114836701"] = {
-        text = "You think this is unfair?",
-        duration = 1.66
+        text = "You think this is unfair?!",
+        duration = 1.80
     },
     ["114980333"] = {
         text = "Firing on target!",
@@ -452,7 +452,7 @@ return {
         duration = 1.22
     },
     ["127485349"] = {
-        text = "HAVE TROUBLE GETTING UP?",
+        text = "HAVE TROUBLE GETTING UP?!",
         duration = 1.43
     },
     ["127496081"] = {
@@ -469,23 +469,23 @@ return {
     },
     ["131769689"] = {
         text = "GET OUT OF MY FACE!",
-        duration = 1.29
+        duration = 1.40
     },
     ["13262646"] = {
         text = "I can still hear you!",
         duration = 1.8
     },
     ["132635771"] = {
-        text = "PEW! PEW! PEW!",
+        text = "Pew! Pew! Pew!",
         duration = 1.32
     },
     ["132813135"] = {
-        text = "SHIELD IS FAILING!",
-        duration = 1.11
+        text = "Shield IS FAILING!",
+        duration = 1.30
     },
     ["132887902"] = {
         text = "I've got 50,000 volts for you!",
-        duration = 2.35
+        duration = 2.60
     },
     ["133023886"] = {
         text = "Aerial support on site.",
@@ -493,11 +493,11 @@ return {
     },
     ["133165979"] = {
         text = "CONCENTRATE FIRE!",
-        duration = 1.04
+        duration = 1.20
     },
     ["133552664"] = {
         text = "I'm the rock and the hard place.",
-        duration = 3.09
+        duration = 3.10
     },
     ["133852177"] = {
         text = "I'm like lightning! I'll kill you for free!",
@@ -640,7 +640,7 @@ return {
         duration = 3.74
     },
     ["175969825"] = {
-        text = "Its beauty is blinding. *chuckles*",
+        text = "Its beauty is blinding. *Chuckles*",
         duration = 3.53
     },
     ["177477302"] = {
@@ -656,7 +656,7 @@ return {
         duration = 1.6
     },
     ["180984992"] = {
-        text = "I'M SHREDDING HIM!",
+        text = "I'm shredding em!",
         duration = 1.4
     },
     ["182280905"] = {
@@ -677,7 +677,7 @@ return {
     },
     ["18866630"] = {
         text = "STILL HERE!",
-        duration = 1.06
+        duration = 1.20
     },
     ["189862613"] = {
         text = "AHHHHH!",
@@ -748,7 +748,7 @@ return {
         duration = 2.88
     },
     ["207812969"] = {
-        text = "*Coughs* Strong mix going out.",
+        text = "*Coughs* Strong mix going out!",
         duration = 3.67
     },
     ["208359784"] = {
@@ -796,7 +796,7 @@ return {
         duration = 3.31
     },
     ["225454292"] = {
-        text = "Think a little light's gonna hurt me? Hahahaha!",
+        text = "Think a little light's gonna hurt me? *Laughing*",
         duration = 3.88
     },
     ["226403244"] = {
@@ -804,11 +804,11 @@ return {
         duration = 1.74
     },
     ["228096560"] = {
-        text = "THIS MADE A CARDBOARD!",
+        text = "THIS MADE OF CARDBOARD!",
         duration = 1.41
     },
     ["228340067"] = {
-        text = "All aboard the Bone Crush Express!",
+        text = "All aboard the bone crush express!",
         duration = 3.53
     },
     ["229388038"] = {
@@ -828,7 +828,7 @@ return {
         duration = 1.06
     },
     ["235270204"] = {
-        text = "PEW! PEW! PEW!",
+        text = "Pew! Pew! Pew!",
         duration = 1.32
     },
     ["240691051"] = {
@@ -852,7 +852,7 @@ return {
         duration = 1.87
     },
     ["24773138"] = {
-        text = "I'm coming for you. *chuckles*",
+        text = "I'm coming for you. *Chuckles*",
         duration = 3.4
     },
     ["248903631"] = {
@@ -876,7 +876,7 @@ return {
         duration = 1.18
     },
     ["25395893"] = {
-        text = "Ugh.",
+        text = "Ugh!",
         duration = 0.41
     },
     ["254368398"] = {
@@ -892,7 +892,7 @@ return {
         duration = 1.3
     },
     ["255248901"] = {
-        text = "Mmm, that's nice and warm. Ha, ha, ha.",
+        text = "Mmm, that's nice and warm. *Laughing*",
         duration = 3.37
     },
     ["256227150"] = {
@@ -904,7 +904,7 @@ return {
         duration = 1.22
     },
     ["25942258"] = {
-        text = "SHIELD PROTECTION IMPAIRED!",
+        text = "Shield PROTECTION IMPAIRED!",
         duration = 1.89
     },
     ["259473494"] = {
@@ -912,7 +912,7 @@ return {
         duration = 1.63
     },
     ["259842143"] = {
-        text = "You've been cloakered, pissant!",
+        text = "You've been Cloakered, pissant!",
         duration = 3.78
     },
     ["259912895"] = {
@@ -1024,7 +1024,7 @@ return {
         duration = 1.11
     },
     ["301653723"] = {
-        text = "SHIELD'S STILL HOLDING!",
+        text = "Shield'S STILL HOLDING!",
         duration = 1.23
     },
     ["301658958"] = {
@@ -1040,7 +1040,7 @@ return {
         duration = 2.0
     },
     ["303513227"] = {
-        text = "HAHAHAHAHAHA!",
+        text = "*maniacal laughter*",
         duration = 1.99
     },
     ["303740819"] = {
@@ -1057,7 +1057,7 @@ return {
     },
     ["308179671"] = {
         text = "This one's got some kick to it!",
-        duration = 1.79
+        duration = 1.90
     },
     ["309662960"] = {
         text = "Dammit! They're running a hack!",
@@ -1136,7 +1136,7 @@ return {
         duration = 1.21
     },
     ["326151961"] = {
-        text = "Let the shield take the hit!",
+        text = "Let the Shield take the hit!",
         duration = 1.22
     },
     ["328883125"] = {
@@ -1160,7 +1160,7 @@ return {
         duration = 1.14
     },
     ["334482992"] = {
-        text = "They're here!",
+        text = "THEY'RE HERE!",
         duration = 0.80
     },
     ["33465531"] = {
@@ -1176,11 +1176,11 @@ return {
         duration = 1.21
     },
     ["336141692"] = {
-        text = "Tactical shield unit pushing in!",
+        text = "Tactical Shield unit pushing in!",
         duration = 2.03
     },
     ["337413662"] = {
-        text = " *Spasms* Can't s-st-t-op t-tw-twitching!",
+        text = "Can't s-st-t-op t-tw-twitching!",
         duration = 2.28
     },
     ["337814163"] = {
@@ -1189,18 +1189,18 @@ return {
     },
     ["338615476"] = {
         text = "OGH!",
-        duration = 0.58
+        duration = 0.70
     },
     ["338916973"] = {
         text = "No damage taken!",
-        duration = 1.22
+        duration = 1.30
     },
     ["339468106"] = {
         text = "I'm behind you.",
         duration = 1.65
     },
     ["341017760"] = {
-        text = "I'm gone.",
+        text = "*Chuckles* I'm gone.",
         duration = 2.5
     },
     ["342950633"] = {
@@ -1240,11 +1240,11 @@ return {
         duration = 2.73
     },
     ["352302438"] = {
-        text = "SHIELD IT!",
+        text = "Shield IT!",
         duration = 0.6
     },
     ["352729706"] = {
-        text = "That makes me angry. You don't want me angry.",
+        text = "That makes me angry! You don't want me angry!",
         duration = 4.93
     },
     ["356334970"] = {
@@ -1272,11 +1272,11 @@ return {
         duration = 2.19
     },
     ["361275459"] = {
-        text = "The shield caught the explosion!",
+        text = "THE Shield CAUGHT THE EXPLOSION!",
         duration = 1.51
     },
     ["363452138"] = {
-        text = "DAMN IT! MY SHIELD!",
+        text = "DAMN IT! MY Shield!",
         duration = 1.3
     },
     ["366760469"] = {
@@ -1285,11 +1285,11 @@ return {
     },
     ["369462520"] = {
         text = "MOVE BACK!",
-        duration = 0.91
+        duration = 1.02
     },
     ["370334778"] = {
-        text = "I will smash every bone in your body and paint the walls with your insides.",
-        duration = 6.19
+        text = "I will smash every bone in your body and paint the walls with your insides!",
+        duration = 6.02
     },
     ["371571085"] = {
         text = "NO YOU DON'T!",
@@ -1297,11 +1297,11 @@ return {
     },
     ["371686183"] = {
         text = "Better be grounded!",
-        duration = 0.96
+        duration = 1.30
     },
     ["372511417"] = {
         text = "AHH!",
-        duration = 0.47
+        duration = 0.60
     },
     ["372826289"] = {
         text = "Have a taste of this!",
@@ -1392,7 +1392,7 @@ return {
         duration = 1.87
     },
     ["396761475"] = {
-        text = "SHIELD'S, FULLY OPERATIONAL!",
+        text = "Shield'S, FULLY OPERATIONAL!",
         duration = 1.58
     },
     ["397074057"] = {
@@ -1400,7 +1400,7 @@ return {
         duration = 1.92
     },
     ["397649030"] = {
-        text = "MY SHIELD'S TAKING DAMAGE!",
+        text = "MY Shield'S TAKING DAMAGE!",
         duration = 1.94
     },
     ["398453739"] = {
@@ -1412,16 +1412,16 @@ return {
         duration = 2.22
     },
     ["399342891"] = {
-        text = "I expected better. *chuckles*",
+        text = "I expected better. *Chuckles*",
         duration = 3.36
     },
     ["402597641"] = {
         text = "I can't feel my lips!",
-        duration = 1.7
+        duration = 1.9
     },
     ["402614774"] = {
         text = "Weapons hot! Firing!",
-        duration = 1.58
+        duration = 1.70
     },
     ["402721154"] = {
         text = "Drone ready to go.",
@@ -1437,7 +1437,7 @@ return {
     },
     ["405600595"] = {
         text = "NO IMPACT!",
-        duration = 0.94
+        duration = 1.02
     },
     ["405710483"] = {
         text = "I'll take that armor. Thank you.",
@@ -1492,7 +1492,7 @@ return {
         duration = 2.64
     },
     ["413105690"] = {
-        text = "Incoming! mutilation mayhem!",
+        text = "Incoming! Mutilation mayhem!",
         duration = 3.29
     },
     ["414187912"] = {
@@ -1504,8 +1504,8 @@ return {
         duration = 3.46
     },
     ["415729461"] = {
-        text = "OW!",
-        duration = 0.52
+        text = "AW!",
+        duration = 0.60
     },
     ["416757106"] = {
         text = "You'll get no mercy.",
@@ -1604,16 +1604,16 @@ return {
         duration = 1.42
     },
     ["436030764"] = {
-        text = "Yeah.",
-        duration = 0.66
+        text = "OAGH!.",
+        duration = 0.90
     },
     ["437004523"] = {
         text = "This is too easy!",
-        duration = 1.27
+        duration = 1.40
     },
     ["437220709"] = {
         text = "This one's broken!",
-        duration = 1.31
+        duration = 1.40
     },
     ["437535160"] = {
         text = "DID YOU HURT YOURSELF?",
@@ -1628,7 +1628,7 @@ return {
         duration = 1.76
     },
     ["438990251"] = {
-        text = "Stomp to the ground! Booyah!",
+        text = "Stomped to the ground! Booyah!",
         duration = 3.18
     },
     ["440478500"] = {
@@ -1652,11 +1652,11 @@ return {
         duration = 0.52
     },
     ["443063850"] = {
-        text = "This'll make him spark!",
+        text = "This'll make em spark!",
         duration = 1.36
     },
     ["445751266"] = {
-        text = "SHIELDS BUSTED!",
+        text = "Shield'S BUSTED!",
         duration = 1.4
     },
     ["4461648"] = {
@@ -1685,7 +1685,7 @@ return {
     },
     ["456216962"] = {
         text = "AH!",
-        duration = 0.37
+        duration = 0.50
     },
     ["457106057"] = {
         text = "YOU WON'T GET PAST ME!",
@@ -1696,7 +1696,7 @@ return {
         duration = 1.15
     },
     ["461115180"] = {
-        text = "You incompetent fuck! I'm blinded here!",
+        text = "YOU INCOMPETENT FUCK! I'M BLINDED HERE!",
         duration = 3.03
     },
     ["464679967"] = {
@@ -1713,7 +1713,7 @@ return {
     },
     ["466284588"] = {
         text = "Not wearing your rubber diaper?!",
-        duration = 1.95
+        duration = 2.10
     },
     ["46651344"] = {
         text = "Feel the sledgehammer!",
@@ -1728,11 +1728,11 @@ return {
         duration = 1.11
     },
     ["469295633"] = {
-        text = "SHIELD VIEWPOINT VULNERABLE!",
+        text = "Shield VIEWPOINT VULNERABLE!",
         duration = 1.75
     },
     ["469615789"] = {
-        text = "Tactical shield unit in place. Moving to clear.",
+        text = "Tactical Shield unit in place. Moving to clear.",
         duration = 2.83
     },
     ["474584623"] = {
@@ -1760,7 +1760,7 @@ return {
         duration = 2.2
     },
     ["482430309"] = {
-        text = "SHIELD MALFUNCTION!",
+        text = "Shield MALFUNCTION!",
         duration = 1.39
     },
     ["485550059"] = {
@@ -1768,7 +1768,7 @@ return {
         duration = 1.88
     },
     ["486048507"] = {
-        text = "HAH!",
+        text = "AH!",
         duration = 0.60
     },
     ["488316844"] = {
@@ -1836,7 +1836,7 @@ return {
         duration = 1.54
     },
     ["501804323"] = {
-        text = "Tactical Shield Unit still operational!",
+        text = "Tactical Shield unit still operational!",
         duration = 2.0
     },
     ["501819904"] = {
@@ -1872,7 +1872,7 @@ return {
         duration = 1.34
     },
     ["511980391"] = {
-        text = "*Taunts* Where did I go?",
+        text = "Where did I go~?",
         duration = 3.17
     },
     ["512452900"] = {
@@ -1881,14 +1881,14 @@ return {
     },
     ["513872505"] = {
         text = "UP THE VOLTAGE!",
-        duration = 1.2
+        duration = 1.4
     },
     ["514298125"] = {
         text = "Uough.",
         duration = 2.54
     },
     ["514462540"] = {
-        text = "For fuck's sake.",
+        text = "For fuck sake.",
         duration = 1.23
     },
     ["51575457"] = {
@@ -1969,7 +1969,7 @@ return {
     },
     ["533373913"] = {
         text = "I'm a grounded kind of guy!",
-        duration = 1.81
+        duration = 2.20
     },
     ["534376345"] = {
         text = "Big mistake trying that non-lethal shit on me.",
@@ -2032,7 +2032,7 @@ return {
         duration = 1.5
     },
     ["54724399"] = {
-        text = "Just like Beggar's Canyon!",
+        text = "Just like beggar's canyon!",
         duration = 1.73
     },
     ["547999146"] = {
@@ -2048,7 +2048,7 @@ return {
         duration = 1.09
     },
     ["553663616"] = {
-        text = "THE SHIELD TOOK THE HIT!",
+        text = "THE Shield TOOK THE HIT!",
         duration = 1.14
     },
     ["553829282"] = {
@@ -2093,7 +2093,7 @@ return {
     },
     ["563751709"] = {
         text = "I'm amped up!",
-        duration = 1.66
+        duration = 1.80
     },
     ["566476700"] = {
         text = "You're poking the bear, wimp!",
@@ -2109,7 +2109,7 @@ return {
     },
     ["568747619"] = {
         text = "DEFLECTED!",
-        duration = 0.84
+        duration = 1.10
     },
     ["568829404"] = {
         text = "Target sighted.",
@@ -2220,7 +2220,7 @@ return {
         duration = 2.21
     },
     ["590089481"] = {
-        text = "Ha ha ha, annoyed yet?",
+        text = "*Laughing*, annoyed yet?",
         duration = 1.5
     },
     ["590103503"] = {
@@ -2248,7 +2248,7 @@ return {
         duration = 1.73
     },
     ["597653117"] = {
-        text = "THE SHIELD DEFECTED THE BLAST!",
+        text = "THE Shield DEFECTED THE BLAST!",
         duration = 1.62
     },
     ["598847500"] = {
@@ -2336,7 +2336,7 @@ return {
         duration = 2.55
     },
     ["615767422"] = {
-        text = "SHIELDS IMPAIRED!",
+        text = "ShieldS IMPAIRED!",
         duration = 1.48
     },
     ["615786961"] = {
@@ -2364,7 +2364,7 @@ return {
         duration = 1.16
     },
     ["622040051"] = {
-        text = "Fire can't hurt the bulldozer!",
+        text = "Fire can't hurt the Bulldozer!",
         duration = 2.34
     },
     ["624320736"] = {
@@ -2489,7 +2489,7 @@ return {
     },
     ["664125779"] = {
         text = "I EAT BULLETS FOR BREAKFAST!",
-        duration = 1.96
+        duration = 2.10
     },
     ["665766881"] = {
         text = "Boom!",
@@ -2513,7 +2513,7 @@ return {
     },
     ["670578797"] = {
         text = "MY TEETH ARE DINGLING!",
-        duration = 1.38
+        duration = 1.60
     },
     ["672787589"] = {
         text = "I'm one with the shadows.",
@@ -2716,7 +2716,7 @@ return {
         duration = 0.94
     },
     ["729603600"] = {
-        text = "That was fun. *chuckles*",
+        text = "That was fun. *Chuckles*",
         duration = 2.98
     },
     ["730377047"] = {
@@ -2760,7 +2760,7 @@ return {
         duration = 1.7
     },
     ["739192499"] = {
-        text = "SHIELD UNITS COMPROVISED!",
+        text = "Shield UNITS COMPROVISED!",
         duration = 1.77
     },
     ["739756136"] = {
@@ -2788,7 +2788,7 @@ return {
         duration = 2.29
     },
     ["745869057"] = {
-        text = "SHIELD'S GETTING SHREDDED!",
+        text = "Shield'S GETTING SHREDDED!",
         duration = 1.37
     },
     ["745981512"] = {
@@ -2813,7 +2813,7 @@ return {
     },
     ["753220136"] = {
         text = "Only four of them?",
-        duration = 1.46
+        duration = 1.60
     },
     ["755944879"] = {
         text = "Firing phasers!",
@@ -2821,7 +2821,7 @@ return {
     },
     ["756531958"] = {
         text = "THAT WAS TOO CLOSE!",
-        duration = 1.47
+        duration = 1.60
     },
     ["756571677"] = {
         text = "Something just got me, head spinning.",
@@ -2857,7 +2857,7 @@ return {
     },
     ["768745326"] = {
         text = "I'm feeling weirdly focused.",
-        duration = 2.61
+        duration = 2.90
     },
     ["768956326"] = {
         text = "You just got hammered, fucker.",
@@ -2865,7 +2865,7 @@ return {
     },
     ["771097753"] = {
         text = "Energized and ready!",
-        duration = 2.09
+        duration = 2.30
     },
     ["773498852"] = {
         text = "I'm ready for some serious 'nading!",
@@ -2928,7 +2928,7 @@ return {
         duration = 3.22
     },
     ["79052888"] = {
-        text = "The shield took the blast!",
+        text = "The Shield took the blast!",
         duration = 1.52
     },
     ["790688931"] = {
@@ -2964,7 +2964,7 @@ return {
         duration = 1.47
     },
     ["800129816"] = {
-        text = "Aww, ain't the lights pretty?",
+        text = "Aww, ain't the lights pretty~?",
         duration = 1.85
     },
     ["800794820"] = {
@@ -2980,7 +2980,7 @@ return {
         duration = 2.54
     },
     ["803849091"] = {
-        text = "Was that a sonic weapon?!",
+        text = "WAS THAT A SONIC WEAPON?!",
         duration = 1.68
     },
     ["804015538"] = {
@@ -3100,7 +3100,7 @@ return {
         duration = 2.33
     },
     ["83939287"] = {
-        text = "YOU THINK YOU CAN TAKE ME ON AND SURVIVE? HA HA HA!",
+        text = "YOU THINK YOU CAN TAKE ME ON AND SURVIVE? *Laughing*!",
         duration = 4.54
     },
     ["840096601"] = {
@@ -3148,7 +3148,7 @@ return {
         duration = 4.0
     },
     ["85023264"] = {
-        text = "THE SHIELD TOOK THE BLAST!",
+        text = "THE Shield TOOK THE BLAST!",
         duration = 1.6
     },
     ["851936277"] = {
@@ -3160,7 +3160,7 @@ return {
         duration = 2.37
     },
     ["852794716"] = {
-        text = "SHIELDED FROM THE BLAST!",
+        text = "ShieldED FROM THE BLAST!",
         duration = 1.32
     },
     ["852866597"] = {
@@ -3168,7 +3168,7 @@ return {
         duration = 2.06
     },
     ["853354534"] = {
-        text = "COMPROMISED! SHIELD FAILING!",
+        text = "COMPROMISED! Shield FAILING!",
         duration = 1.73
     },
     ["854571001"] = {
@@ -3181,7 +3181,7 @@ return {
     },
     ["862527785"] = {
         text = "Electroshock treatment, anyone?",
-        duration = 1.92
+        duration = 2.50
     },
     ["86305670"] = {
         text = "I'm hereeeeee.",
@@ -3248,7 +3248,7 @@ return {
         duration = 2.05
     },
     ["878892875"] = {
-        text = "Are you gonna cry to mommy? Heheh!",
+        text = "Are you gonna cry to mommy? Heh!",
         duration = 2.17
     },
     ["880422773"] = {
@@ -3273,10 +3273,10 @@ return {
     },
     ["884817440"] = {
         text = "No damage!",
-        duration = 0.88
+        duration = 1.10
     },
     ["885095995"] = {
-        text = "Just like Beggar's Canyon.",
+        text = "Just like .",
         duration = 1.78
     },
     ["887867254"] = {
@@ -3284,7 +3284,7 @@ return {
         duration = 1.11
     },
     ["888085335"] = {
-        text = "SHIELD'S STILL HOLDING!",
+        text = "Shield'S STILL HOLDING!",
         duration = 1.21
     },
     ["889858418"] = {
@@ -3324,7 +3324,7 @@ return {
         duration = 5.97
     },
     ["89948613"] = {
-        text = "Can't move?! *laughing*",
+        text = "Can't move?! *Laughing*",
         duration = 2.36
     },
     ["90226885"] = {
@@ -3364,7 +3364,7 @@ return {
         duration = 2.36
     },
     ["915396254"] = {
-        text = "SHIT! MY SHIELD'S BREAKING!",
+        text = "SHIT! MY Shield'S BREAKING!",
         duration = 1.76
     },
     ["916409692"] = {
@@ -3484,7 +3484,7 @@ return {
         duration = 2.15
     },
     ["951995312"] = {
-        text = "The shield stopped it!",
+        text = "The Shield stopped it!",
         duration = 1.53
     },
     ["954455497"] = {
@@ -3536,7 +3536,7 @@ return {
         duration = 1.04
     },
     ["962574217"] = {
-        text = "YOU'RE ABOUT TO BE DOZERED!",
+        text = "YOU'RE ABOUT TO BE DozerED!",
         duration = 2.83
     },
     ["96356927"] = {
@@ -3556,7 +3556,7 @@ return {
         duration = 1.16
     },
     ["968118354"] = {
-        text = "Clown down! *laughing*",
+        text = "Clown down! *Laughing*",
         duration = 2.8
     },
     ["97012666"] = {
@@ -3580,7 +3580,7 @@ return {
         duration = 0.93
     },
     ["97653806"] = {
-        text = "Burning some eyeballs, *laughing*",
+        text = "Burning some eyeballs, *Laughing*",
         duration = 2.76
     },
     ["977209791"] = {
@@ -3604,7 +3604,7 @@ return {
         duration = 1.4
     },
     ["982030376"] = {
-        text = "SHIELD IT!",
+        text = "Shield IT!",
         duration = 0.81
     },
     ["982072934"] = {
@@ -3616,7 +3616,7 @@ return {
         duration = 1.37
     },
     ["98497139"] = {
-        text = "SHIELD INTEGRITY FAILING!",
+        text = "Shield INTEGRITY FAILING!",
         duration = 1.42
     },
     ["985426809"] = {
@@ -3696,11 +3696,11 @@ return {
         duration = 1.87
     },
     ["1013120996"] = {
-        text = "Somebody give that cloaker a raise.",
+        text = "Somebody give that Cloaker a raise.",
         duration = 2.58
     },
     ["101881637"] = {
-        text = "Downed by the zapper!",
+        text = "Downed by the Zapper!",
         duration = 1.56
     },
     ["1026522520"] = {
@@ -3708,7 +3708,7 @@ return {
         duration = 1.29
     },
     ["1031273497"] = {
-        text = "That bulldozer got his eye on the heisters.",
+        text = "That Bulldozer got his eye on the heisters.",
         duration = 2.5
     },
     ["1036621752"] = {
@@ -3716,7 +3716,7 @@ return {
         duration = 2.16
     },
     ["1045336824"] = {
-        text = "They're no match for the dozer crew.",
+        text = "They're no match for the Dozer crew.",
         duration = 2.42
     },
     ["1045384930"] = {
@@ -3768,7 +3768,7 @@ return {
         duration = 2.82
     },
     ["206175899"] = {
-        text = "That cloaker is taking his job seriously.",
+        text = "That Cloaker is taking his job seriously.",
         duration = 2.75
     },
     ["206235465"] = {
@@ -3776,7 +3776,7 @@ return {
         duration = 1.9
     },
     ["212923322"] = {
-        text = "Love that zapper. They must be frazzled by now.",
+        text = "Love that Zapper. They must be frazzled by now.",
         duration = 3.3
     },
     ["223758251"] = {
@@ -3800,7 +3800,7 @@ return {
         duration = 3.91
     },
     ["246295954"] = {
-        text = "Down by the techie.",
+        text = "Down by the Techie.",
         duration = 1.3
     },
     ["251698543"] = {
@@ -3828,7 +3828,7 @@ return {
         duration = 3.69
     },
     ["294263819"] = {
-        text = "The techie showed him who's boss.",
+        text = "The Techie showed him who's boss.",
         duration = 1.67
     },
     ["308011128"] = {
@@ -3904,7 +3904,7 @@ return {
         duration = 3.06
     },
     ["472433379"] = {
-        text = "That shield deserves a medal.",
+        text = "That Shield deserves a medal.",
         duration = 2.44
     },
     ["476774059"] = {
@@ -3932,7 +3932,7 @@ return {
         duration = 2.87
     },
     ["534921261"] = {
-        text = "I'm putting that zapper up for a promotion.",
+        text = "I'm putting that Zapper up for a promotion.",
         duration = 3.23
     },
     ["536253406"] = {
@@ -3952,7 +3952,7 @@ return {
         duration = 3.53
     },
     ["570457902"] = {
-        text = "Looks like that nader is having a blast",
+        text = "Looks like that Nader is having a blast",
         duration = 2.4
     },
     ["58391811"] = {
@@ -3964,7 +3964,7 @@ return {
         duration = 3.17
     },
     ["588525906"] = {
-        text = "That zapper is working overtime.",
+        text = "That Zapper is working overtime.",
         duration = 2.56
     },
     ["59913058"] = {
@@ -3976,7 +3976,7 @@ return {
         duration = 2.74
     },
     ["623571781"] = {
-        text = "Remind me to congratulate that dozer personally.",
+        text = "Remind me to congratulate that Dozer personally.",
         duration = 2.91
     },
     ["634006800"] = {
@@ -4020,11 +4020,11 @@ return {
         duration = 1.06
     },
     ["672734252"] = {
-        text = "That dozer is a national treasure.",
+        text = "That Dozer is a national treasure.",
         duration = 2.78
     },
     ["699938701"] = {
-        text = "The shield stopped them in their tracks.",
+        text = "The Shield stopped them in their tracks.",
         duration = 1.98
     },
     ["703127829"] = {
@@ -4076,7 +4076,7 @@ return {
         duration = 1.83
     },
     ["829518899"] = {
-        text = "That bulldozer sure is living up to his name.",
+        text = "That Bulldozer sure is living up to his name.",
         duration = 3.33
     },
     ["832969101"] = {
@@ -4104,7 +4104,7 @@ return {
         duration = 2.93
     },
     ["873045077"] = {
-        text = "Seems like the dozers have a thing for the payday gang.",
+        text = "Seems like the Dozers have a thing for the payday gang.",
         duration = 2.89
     },
     ["887418684"] = {
@@ -4116,11 +4116,11 @@ return {
         duration = 2.87
     },
     ["915261164"] = {
-        text = "I'm giving that shield a commendation.",
+        text = "I'm giving that Shield a commendation.",
         duration = 2.37
     },
     ["91534186"] = {
-        text = "That shield is a goddamn hero.",
+        text = "That Shield is a goddamn hero.",
         duration = 2.64
     },
     ["916439008"] = {
@@ -4144,7 +4144,7 @@ return {
         duration = 1.83
     },
     ["971971978"] = {
-        text = "Get that zapper some fresh batteries and send them back in.",
+        text = "Get that Zapper some fresh batteries and send them back in.",
         duration = 3.24
     },
     ["979400009"] = {
@@ -4160,7 +4160,7 @@ return {
         duration = 3.12
     },
     ["995478746"] = {
-        text = "That nader needs to get a raise.",
+        text = "That Nader needs to get a raise.",
         duration = 2.35
     },
     ["999301327"] = {
