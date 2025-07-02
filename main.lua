@@ -171,7 +171,7 @@ AddSoundEvent("star_winch")
 
 OnSoundCaptured = function(eventName, mediaID, playingID, gameObject)
     local key = tostring(mediaID)
-    if gameObject and transcriptions[key] then
+    if gameObject and gameObject:IsValid() and transcriptions[key] then
         local t = transcriptions[key]
         if eventName == "fbi" then
             spawnText(gameObject:GetWorld(), gameObject:GetOwner(), t.text, t.duration, true, 280)
@@ -179,6 +179,7 @@ OnSoundCaptured = function(eventName, mediaID, playingID, gameObject)
             spawnText(gameObject:GetWorld(), gameObject:GetOwner(), t.text, t.duration, true)
         end
     end
+    print(eventName, mediaID, playingID, gameObject)
 end
 
 OnF4Pressed = function()
