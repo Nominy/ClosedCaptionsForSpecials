@@ -16,6 +16,7 @@
 #include <Unreal/UObjectGlobals.hpp>
 #include <LuaType/LuaUObject.hpp>
 #include <lauxlib.h>
+#include <atomic>
 
 using namespace RC;
 using namespace RC::Unreal;
@@ -25,8 +26,6 @@ PostEventID_t_int g_PostEventTrampoline_intid = nullptr;
 PostEventID_t_str g_PostEventTrampoline_strid = nullptr;
 std::unordered_set<uint64_t> g_EventFilter;
 std::shared_mutex g_FilterMx;
-std::unordered_map<AkPlayingID, OriginalCallbackInfo> g_OriginalCallbacks;
-std::mutex g_CallbackMutex;
 void* g_ModInstance = nullptr;
 DWORD g_MainThreadId = 0;
 std::queue<SoundEventData> g_PendingSoundEvents;
@@ -117,11 +116,11 @@ void PushGameObjectOrNil(LuaMadeSimple::Lua& L, AkGameObjectID id)
         UObject* obj = reinterpret_cast<UObject*>(id);
         if (TryValidateUObject(obj)) {
             __try {
-                if(obj->IsUnreachable()) {
+                if (obj->IsUnreachable()) {
                     Output::send(TEXT("[MyAwesomeMod] Invalid UObject pointer detected\n"));
                     L.set_nil();
                     return;
-				}
+                }
                 LuaType::auto_construct_object(L, obj);
                 return;
             }
@@ -133,6 +132,27 @@ void PushGameObjectOrNil(LuaMadeSimple::Lua& L, AkGameObjectID id)
     }
     L.set_nil();
 }
+
+// Per-event context stored by playingID
+struct CallbackContext
+{
+    uint64_t magic;
+    AkCallbackFunc originalCallback;
+    void* originalCookie;
+    AkUInt32 originalFlags;
+    std::wstring eventName;
+    uint64_t eventIdentifier;
+};
+
+static constexpr uint64_t kCookieMagic = 0xD15EA5EDCAFEBABEULL;
+
+// Robust lifetime management: track active callbacks and store contexts by playingID.
+static std::atomic<long> g_ActiveCallbackCount{0};
+static std::atomic<bool> g_IsShuttingDown{false};
+static std::mutex g_ContextMapMutex;
+static std::unordered_map<AkPlayingID, std::unique_ptr<CallbackContext>> g_PlayingIdToContext;
+static std::mutex g_PendingCtxFreesMutex;
+static std::queue<std::unique_ptr<CallbackContext>> g_PendingCtxFrees;
 
 // Helper function for safe original callback invocation
 bool TryCallOriginalCallback(AkCallbackFunc callback, AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo, void* originalCookie) {
@@ -148,17 +168,67 @@ bool TryCallOriginalCallback(AkCallbackFunc callback, AkCallbackType in_eType, A
     }
 }
 
-// Helper function to safely add flags and inject callback
-AkUInt32 ProcessFlagsAndCallback(AkUInt32 originalFlags, AkCallbackFunc originalCallback, void* originalCookie, AkCallbackFunc& outCallback, void*& outCookie)
+// Helper to compute flags and set our callback while preserving original cookie.
+static AkUInt32 BuildFlagsAndCookie(
+    AkUInt32 originalFlags,
+    AkCallbackFunc /*originalCallback*/,
+    void* originalCookie,
+    const std::wstring& /*eventName*/,
+    uint64_t /*eventIdentifier*/,
+    AkCallbackFunc& outCallback,
+    void*& outCookie)
 {
-    AkUInt32 newFlags = originalFlags;
-    // Only add AK_Duration if not already present
-    if (!(originalFlags & AK_Duration)) {
-        newFlags |= AK_Duration;
-    }
     outCallback = CallbackWrapper;
+    // Preserve engine's cookie semantics for the original callback
     outCookie = originalCookie;
+
+    // Ensure we receive both Duration and EndOfEvent for our capture logic
+    AkUInt32 newFlags = originalFlags | AK_Duration | AK_EndOfEvent;
     return newFlags;
+}
+
+// Register per-playingID context after PostEvent returns a valid ID
+static void RegisterCallbackContext(
+    AkPlayingID playingID,
+    AkCallbackFunc originalCallback,
+    void* originalCookie,
+    AkUInt32 originalFlags,
+    const std::wstring& eventName,
+    uint64_t eventIdentifier)
+{
+    if (playingID == AK_INVALID_PLAYING_ID) {
+        return;
+    }
+    auto ctx = std::make_unique<CallbackContext>(CallbackContext{
+        kCookieMagic,
+        originalCallback,
+        originalCookie,
+        originalFlags,
+        eventName,
+        eventIdentifier});
+
+    {
+        std::lock_guard<std::mutex> lk(g_ContextMapMutex);
+        g_PlayingIdToContext[playingID] = std::move(ctx);
+    }
+}
+
+// Schedule context deletion on the game thread
+static void ScheduleContextDeletion(AkPlayingID playingID)
+{
+    std::unique_ptr<CallbackContext> toFree;
+    {
+        std::lock_guard<std::mutex> lk(g_ContextMapMutex);
+        auto it = g_PlayingIdToContext.find(playingID);
+        if (it != g_PlayingIdToContext.end()) {
+            toFree = std::move(it->second);
+            g_PlayingIdToContext.erase(it);
+        }
+    }
+    if (toFree) {
+        std::lock_guard<std::mutex> qlk(g_PendingCtxFreesMutex);
+        g_PendingCtxFrees.push(std::move(toFree));
+    }
 }
 
 AkPlayingID __cdecl Hook_PostEvent_intid(
@@ -177,18 +247,19 @@ AkPlayingID __cdecl Hook_PostEvent_intid(
         return g_PostEventTrampoline_intid(eventID, gameObjID, flags, cb, cookie, extCount, externals, playingID);
     }
 
+    std::wstring eventNameW = L"EventID_" + std::to_wstring(eventID);
     AkCallbackFunc modifiedCb = cb;
     void* modifiedCookie = cookie;
-    AkUInt32 modifiedFlags = ProcessFlagsAndCallback(flags, cb, cookie, modifiedCb, modifiedCookie);
-    
+    AkUInt32 modifiedFlags = BuildFlagsAndCookie(
+        flags, cb, cookie, eventNameW, static_cast<uint64_t>(eventID), modifiedCb, modifiedCookie);
+
     AkPlayingID resultPlayingID = g_PostEventTrampoline_intid(
         eventID, gameObjID, modifiedFlags, modifiedCb,
         modifiedCookie, extCount, externals, playingID);
-    
+
+    // Register context mapping only if the event actually started
     if (resultPlayingID != AK_INVALID_PLAYING_ID) {
-        std::wstring eventName = L"EventID_" + std::to_wstring(eventID);
-        std::lock_guard<std::mutex> lock(g_CallbackMutex);
-        g_OriginalCallbacks[resultPlayingID] = OriginalCallbackInfo(cb, cookie, eventName, eventID, flags);
+        RegisterCallbackContext(resultPlayingID, cb, cookie, flags, eventNameW, static_cast<uint64_t>(eventID));
     }
 
     return resultPlayingID;
@@ -213,15 +284,20 @@ AkPlayingID __cdecl Hook_PostEvent_stringid(
 
     AkCallbackFunc modifiedCb = cb;
     void* modifiedCookie = cookie;
-    AkUInt32 modifiedFlags = ProcessFlagsAndCallback(flags, cb, cookie, modifiedCb, modifiedCookie);
-    
+    AkUInt32 modifiedFlags = BuildFlagsAndCookie(
+        flags, cb, cookie, eventName ? std::wstring(eventName) : std::wstring(L"Unknown"), hv,
+        modifiedCb, modifiedCookie);
+
     AkPlayingID resultPlayingID = g_PostEventTrampoline_strid(
         eventName, gameObjID, modifiedFlags, modifiedCb,
         modifiedCookie, extCount, externals, playingID);
-    
+
+    // Register context mapping only if the event actually started
     if (resultPlayingID != AK_INVALID_PLAYING_ID) {
-        std::lock_guard<std::mutex> lock(g_CallbackMutex);
-        g_OriginalCallbacks[resultPlayingID] = OriginalCallbackInfo(cb, cookie, eventName ? eventName : L"Unknown", hv, flags);
+        RegisterCallbackContext(resultPlayingID, cb, cookie,
+            flags,
+            eventName ? std::wstring(eventName) : std::wstring(L"Unknown"),
+            hv);
     }
 
     return resultPlayingID;
@@ -234,7 +310,7 @@ PayDay3_SoundSubMod::PayDay3_SoundSubMod()
     ModVersion = TEXT("1.0");
     ModDescription = TEXT("Shows subtitles for Wwise cues");
     ModAuthors = TEXT("NaftSan");
-    
+
     g_ModInstance = this;
     g_MainThreadId = 0;  // Will be set in first on_update() call
 
@@ -259,6 +335,16 @@ void PayDay3_SoundSubMod::ProcessQueuedSoundEvents()
         ExecuteSoundHook(eventData.eventName, eventData.mediaID, eventData.playingID, eventData.gameObjectID);
         eventsToProcess.pop();
     }
+
+    // Drain any pending per-event context frees on the game thread
+    {
+        std::queue<std::unique_ptr<CallbackContext>> toFree;
+        {
+            std::lock_guard<std::mutex> lk(g_PendingCtxFreesMutex);
+            std::swap(toFree, g_PendingCtxFrees);
+        }
+        // unique_ptrs free on scope exit
+    }
 }
 
 void PayDay3_SoundSubMod::ExecuteSoundHook(const std::wstring& eventName, AkUniqueID mediaID, AkPlayingID playingID, AkGameObjectID gameObjectID)
@@ -273,26 +359,32 @@ void PayDay3_SoundSubMod::ExecuteSoundHook(const std::wstring& eventName, AkUniq
         }
 
         m_main_lua->prepare_function_call("OnSoundCaptured");
-        
+
         std::string eventNameStr(eventName.begin(), eventName.end());
-        
+
         m_main_lua->set_string(eventNameStr);
         m_main_lua->set_integer(static_cast<int64_t>(mediaID));
         m_main_lua->set_integer(static_cast<int64_t>(playingID));
 
         PushGameObjectOrNil(*m_main_lua, gameObjectID);
-        
+
         m_main_lua->call_function(4, 0);
     }
-    catch (...) {
-        Output::send(TEXT("[MyAwesomeMod] Lua hook execution failed with exception\n"));
+    catch (std::runtime_error e) {
+        Output::send(STR("[MyAwesomeMod] Lua hook execution failed with exception: {}\n"),
+            std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().from_bytes(e.what()));
     }
 }
 
-void PayDay3_SoundSubMod::QueueSoundEvent(const std::wstring& eventName, AkUniqueID mediaID, AkPlayingID playingID, AkGameObjectID gameObjectID)
+void PayDay3_SoundSubMod::QueueSoundEvent(
+    const std::wstring& eventName, 
+    AkUniqueID mediaID, 
+    AkPlayingID playingID, 
+    AkGameObjectID gameObjectID
+)
 {
     std::lock_guard<std::mutex> lock(g_EventQueueMutex);
-    g_PendingSoundEvents.push({eventName, mediaID, playingID, gameObjectID});
+    g_PendingSoundEvents.push({ eventName, mediaID, playingID, gameObjectID });
 }
 
 void PayDay3_SoundSubMod::on_unreal_init()
@@ -342,7 +434,7 @@ void PayDay3_SoundSubMod::on_unreal_init()
     Output::send(TEXT("[MyAwesomeMod] PostEvent detoured successfully\n"));
 }
 
-void PayDay3_SoundSubMod::on_update() 
+void PayDay3_SoundSubMod::on_update()
 {
     if (!g_MainThreadId)                // not set yet
         g_MainThreadId = GetCurrentThreadId();
@@ -351,9 +443,9 @@ void PayDay3_SoundSubMod::on_update()
 }
 
 void PayDay3_SoundSubMod::on_lua_start(LuaMadeSimple::Lua& lua,
-                  LuaMadeSimple::Lua& main_lua,
-                  LuaMadeSimple::Lua& async_lua,
-                  std::vector<LuaMadeSimple::Lua*>& hook_luas)
+    LuaMadeSimple::Lua& main_lua,
+    LuaMadeSimple::Lua& async_lua,
+    std::vector<LuaMadeSimple::Lua*>& hook_luas)
 {
     m_main_lua = &main_lua;
 
@@ -366,12 +458,42 @@ void PayDay3_SoundSubMod::on_lua_start(LuaMadeSimple::Lua& lua,
 PayDay3_SoundSubMod::~PayDay3_SoundSubMod()
 {
     g_ModInstance = nullptr;
-    
+
+    g_IsShuttingDown = true;
+
     if (Detour_int && Detour_int->isHooked())
         Detour_int->unHook();
 
     if (Detour_str && Detour_str->isHooked())
         Detour_str->unHook();
+
+    // Wait for in-flight callbacks to quiesce (bounded wait)
+    const DWORD kMaxWaitMs = 3000;
+    DWORD waited = 0;
+    while (g_ActiveCallbackCount.load() > 0 && waited < kMaxWaitMs) {
+        Sleep(1);
+        waited += 1;
+    }
+
+    // Clear any remaining contexts
+    {
+        std::lock_guard<std::mutex> lk(g_ContextMapMutex);
+        if (!g_PlayingIdToContext.empty()) {
+            std::lock_guard<std::mutex> qlk(g_PendingCtxFreesMutex);
+            for (auto& [pid, ctx] : g_PlayingIdToContext) {
+                g_PendingCtxFrees.push(std::move(ctx));
+            }
+            g_PlayingIdToContext.clear();
+        }
+    }
+    // Drain frees synchronously
+    {
+        std::queue<std::unique_ptr<CallbackContext>> toFree;
+        {
+            std::lock_guard<std::mutex> lk(g_PendingCtxFreesMutex);
+            std::swap(toFree, g_PendingCtxFrees);
+        }
+    }
 }
 
 void __cdecl CallbackWrapper(AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo)
@@ -380,51 +502,59 @@ void __cdecl CallbackWrapper(AkCallbackType in_eType, AkCallbackInfo* in_pCallba
         return;
     }
 
-    // Extract playingID using proper bitwise check and safe casting
-    AkPlayingID playingID = AK_INVALID_PLAYING_ID;
-    if (in_eType & AK_Duration) {
-        AkDurationCallbackInfo* info = static_cast<AkDurationCallbackInfo*>(in_pCallbackInfo);
-        playingID = info->playingID;
-    } else {
-        AkEventCallbackInfo* info = static_cast<AkEventCallbackInfo*>(in_pCallbackInfo);
-        if (info) {
-            playingID = info->playingID;
+    g_ActiveCallbackCount.fetch_add(1);
+
+    const AkUInt32 eType = static_cast<AkUInt32>(in_eType);
+    AkPlayingID playingID = 0;
+    // Most event callback types derive from AkEventCallbackInfo and carry playingID
+    AkEventCallbackInfo* ev = static_cast<AkEventCallbackInfo*>(in_pCallbackInfo);
+    playingID = ev ? ev->playingID : 0;
+
+    // Snapshot needed context data
+    AkCallbackFunc originalCallback = nullptr;
+    void* originalCookie = nullptr;
+    AkUInt32 originalFlags = 0;
+    std::wstring eventName;
+    uint64_t eventIdentifier = 0;
+    bool haveContext = false;
+
+    if (playingID != 0) {
+        std::lock_guard<std::mutex> lk(g_ContextMapMutex);
+        auto it = g_PlayingIdToContext.find(playingID);
+        if (it != g_PlayingIdToContext.end() && it->second && it->second->magic == kCookieMagic) {
+            originalCallback = it->second->originalCallback;
+            originalCookie = it->second->originalCookie;
+            originalFlags = it->second->originalFlags;
+            eventName = it->second->eventName;
+            eventIdentifier = it->second->eventIdentifier;
+            haveContext = true;
         }
     }
 
-    // Get original callback info
-    OriginalCallbackInfo originalInfo;
-    bool foundInfo = false;
-    {
-        std::lock_guard<std::mutex> lock(g_CallbackMutex);
-        auto it = g_OriginalCallbacks.find(playingID);
-        if (it != g_OriginalCallbacks.end()) {
-            originalInfo = it->second;
-            foundInfo = true;
-            // Clean up when event ends
-            if (in_eType & AK_EndOfEvent) {
-                g_OriginalCallbacks.erase(it);
-            }
-        }
-    }
-    
-    // Our own processing - handle AK_Duration for sound event capture
-    if ((in_eType & AK_Duration) && foundInfo && WantedEvent(originalInfo.eventIdentifier))
-    {
-        AkDurationCallbackInfo* info = static_cast<AkDurationCallbackInfo*>(in_pCallbackInfo);
-        if (info->mediaID > 0) {
-            static_cast<PayDay3_SoundSubMod*>(g_ModInstance)->QueueSoundEvent(
-                originalInfo.eventName, info->mediaID, playingID, in_pCallbackInfo->gameObjID);
-        }
-    }
-
-    // CRITICAL FIX: Only forward callback types that the original callback requested
-    // This prevents the crash by not sending unexpected AK_Duration to game callbacks
-    if (foundInfo && originalInfo.originalCallback && (in_eType & originalInfo.originalFlags)) {
-        if (!TryCallOriginalCallback(originalInfo.originalCallback, in_eType, in_pCallbackInfo, originalInfo.originalCookie)) {
+    // Forward to original callback first (only if it asked for this type)
+    if (haveContext && originalCallback && (eType & originalFlags)) {
+        if (!TryCallOriginalCallback(originalCallback, in_eType, in_pCallbackInfo, originalCookie)) {
             Output::send(TEXT("[MyAwesomeMod] Original callback crashed, continuing...\n"));
         }
     }
+
+    // Our own processing (skip during shutdown)
+    if (!g_IsShuttingDown.load()) {
+        if ((eType & AK_Duration) != 0 && haveContext) {
+            AkDurationCallbackInfo* info = static_cast<AkDurationCallbackInfo*>(in_pCallbackInfo);
+            if (info && info->mediaID > 0 && g_ModInstance && WantedEvent(eventIdentifier)) {
+                static_cast<PayDay3_SoundSubMod*>(g_ModInstance)->QueueSoundEvent(
+                    eventName, info->mediaID, info->playingID, in_pCallbackInfo->gameObjID);
+            }
+        }
+    }
+
+    // Cleanup at EndOfEvent: schedule deletion on game thread
+    if ((eType & AK_EndOfEvent) != 0 && playingID != 0) {
+        ScheduleContextDeletion(playingID);
+    }
+
+    g_ActiveCallbackCount.fetch_sub(1);
 }
 
 // DLL exports for UE4SS loader
